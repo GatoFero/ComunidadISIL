@@ -1,0 +1,58 @@
+.welcome-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+}
+.welcome-view input {
+    width: 30%;
+    padding: 10px 20px;
+    min-width: 260px;
+    font-size: 15px;
+    border-radius: 8px;
+}
+.phrases {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    min-width: 80vw;
+}
+.phrases h1{
+    text-align: start;
+    font-size: clamp(1em, 4vw, 2em);
+    line-height: 1.2;
+    min-height: 60px;
+    margin: 0;
+    word-wrap: break-word;
+}
+.courses-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+.courses-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    margin: auto;
+}
+.courses-list button {
+    width: 20%;
+    min-width: 270px;
+    aspect-ratio: 1 / 0.22;
+    transition: all 0.2s ease-in-out;
+}
+
+.courses-list button:hover {
+    scale: 1.05;
+}

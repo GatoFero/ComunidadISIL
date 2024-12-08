@@ -1,0 +1,19 @@
+.login {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 270px;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+.login input {
+    padding: 5px 10px;
+}
+.login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
