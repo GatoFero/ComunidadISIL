@@ -1,14 +1,10 @@
-export interface Teacher{
-    id: number;
-    name: string;
-    qualification: number
-    idCourse: number,
-    comments: Comment[],
-}
+import {Comment} from "./Comment";
 
-export interface Comment {
-    idTeacher: number;
-    content: string;
+export interface Teacher {
+    id: number | null;
+    firstname: string;
+    lastname: string;
     qualification: number
-    username: string;
+    comments: Comment[] | null,
+    course_id: number | null;
 }

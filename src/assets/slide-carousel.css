@@ -1,0 +1,23 @@
+.slide-carousel {
+    display: flex;
+    width: 100%;
+    touch-action: pan-y;
+    transition: transform 0.3s ease-out;
+}
+
+.slide-carousel-children {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    pointer-events: none;
+    padding: 40px 0;
+    gap: 10px;
+    text-align: center;
+}
+
+.slide-carousel-children > * {
+    pointer-events: auto;
+}

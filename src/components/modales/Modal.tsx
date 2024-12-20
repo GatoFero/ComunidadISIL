@@ -1,4 +1,3 @@
-import React from "react";
 import {createPortal} from "react-dom";
 
 interface ModalProps {
@@ -6,7 +5,9 @@ interface ModalProps {
     onClose: () => void
 }
 
-export const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
+export function Modal(
+    { message, onClose }: ModalProps
+){
     return createPortal(
         <div className="modal">
             <div className="modal-content">

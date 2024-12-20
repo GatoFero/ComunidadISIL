@@ -1,19 +1,38 @@
 .login {
-    gap: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 270px;
+    align-items: center;
+    gap: 20px;
     min-height: 100vh;
-    padding: 0 20px;
+    min-width: 300px;
+    padding: 30px 20px;
+    margin: auto;
 }
-.login input {
-    padding: 5px 10px;
-}
-.login-button {
+
+.login-title {
+    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
+    text-align: center;
+}
+
+.login-fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.login-fields input {
+    padding: 15px;
+    width: 100%;
+}
+.login-fields button {
+    width: 100%;
+    padding: 15px 0;
 }

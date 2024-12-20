@@ -1,7 +1,12 @@
 import {Teacher} from "./Teacher.ts";
 
-export interface Course {
-    id?: number;
+export interface CourseInfo {
+    id: number;
     name: string;
-    teachers?: Teacher[];
+    teacher_count?: number;
+    comment_count?: number;
+}
+
+export interface CourseData extends CourseInfo{
+    teachers: Teacher[];
 }

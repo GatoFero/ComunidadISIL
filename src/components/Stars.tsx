@@ -1,24 +1,35 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import star from "/star-solid.svg";
 import starVoid from "/star-solid-void.svg";
 
-export const StaticStars: React.FC<{ qualification: number }> = ({ qualification }) => (
-    <span>
-        {Array.from({ length: 5 }, (_, index) => (
+interface StarsProp {
+    qualification: number;
+}
+interface InteractiveStarsProps{
+    selectedStars: number;
+    onChange: (qualification: number) => void;
+}
+
+export function StaticStars(
+    { qualification }: StarsProp
+){
+    return (
+        <span className="stars">
+        {Array.from({length: 5}, (_, index) => (
             <img
                 key={index}
                 src={index < qualification ? star : starVoid}
                 alt={index < qualification ? "star" : "empty star"}
-                style={{ opacity: index < qualification ? 1 : 0.3 }}
+                style={{opacity: index < qualification ? 1 : 0.3}}
             />
         ))}
     </span>
-);
+    )
+}
 
-export const InteractiveStars: React.FC<{
-    selectedStars: number;
-    onChange: (stars: number) => void;
-}> = ({ selectedStars, onChange }) => {
+export function InteractiveStars(
+    { selectedStars , onChange }: InteractiveStarsProps
+){
     const [hoverStars, setHoverStars] = useState<number | null>(null);
     const currentStars = hoverStars !== null ? hoverStars : selectedStars;
     return (
@@ -38,5 +49,5 @@ export const InteractiveStars: React.FC<{
                 />
             ))}
         </span>
-    );
-};
+    )
+}

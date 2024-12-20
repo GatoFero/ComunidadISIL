@@ -1,0 +1,98 @@
+.navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px clamp(15px, 6vw, 50px);
+    width: 100vw;
+    background-color: var(--plomo);
+}
+.navbar h1{
+    font-size: 25px;
+}
+.navbar i {
+    font-size: 30px;
+    transition: 300ms opacity ease-in-out;
+}
+.navbar i:hover {
+    color: var(--celeste);
+}
+
+.options-nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 100vh;
+    z-index: 100;
+    font-size: 25px;
+    background: rgba(49, 49, 49, 0.63);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: 400ms ease-in-out;
+}
+.options-nav-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.options-nav-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+.options-nav-option:hover {
+    color: var(--celeste);
+}
+@media (max-width: 768px) {
+    .options-nav {
+        width: 80%;
+    }
+}
+@media (max-width: 480px) {
+    .options-nav {
+        width: 100%;
+    }
+}
+
+.user-menu-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 100;
+    position: fixed;
+    right: 5.5%;
+    top: 65px;
+    background: rgba(49, 49, 49, 0.63);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.user-menu-modal header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-wrap: wrap;
+}
+.user-menu-modal header img {
+    width: 130px;
+}
+.modal-close {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
