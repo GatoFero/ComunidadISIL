@@ -1,40 +1,32 @@
 import { supabase } from "../supabaseClient.ts";
-import {PostgrestError} from "@supabase/supabase-js";
-import {CourseData, CourseInfo} from "../models/Course.ts";
+import {Course} from "../models/Course.ts";
 
-export const getAllCourses = async (): Promise<CourseInfo[]|PostgrestError> => {
-    const { data, error } = await supabase.rpc('get_courses_with_counts');
-    if (error) {
-        console.error('Error fetching courses:', error.message);
-        return error;
-    }
-    return data as CourseInfo[];
-};
-
-export const getCourse = async (
+export const getCourseById = async (
     id: number
-): Promise<CourseData|PostgrestError> => {
+) => {
     const { data, error } = await supabase
         .from('courses')
-        .select(`
-            id,
-            name,
-            teachers (
-                firstname,
-                lastname,
-                qualification,
-                comments (
-                    content,
-                    qualification,
-                    username
-                )
-            )
-        `)
+        .select('*')
         .eq('id', id)
         .single();
     if (error) {
-        console.error('Error fetching profesores:', error);
-        return error;
+        console.error(error);
+        return null;
     }
-    return data as CourseData;
+    return data as Course;
+}
+
+export const getCoursesByCareer = async (
+    idCareer: number
+) => {
+    const { data, error } = await supabase
+        .from('course_career')
+        .select('courses(*)')
+        .eq('career_id', idCareer);
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data as unknown as Course[];
 }

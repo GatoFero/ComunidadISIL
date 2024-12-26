@@ -1,5 +1,5 @@
 import {StaticStars} from "../Stars.tsx";
-import '../../assets/podiums.css'
+import '../../assets/css/podiums.css'
 import {useEffect, useState} from "react";
 
 export interface PlacedPodium {

@@ -1,0 +1,49 @@
+.experiences-wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 82%;
+    margin: auto;
+}
+
+.experience-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 20px 0;
+    border-radius: 10px;
+    gap: 20px;
+    background: var(--plomo);
+}
+.experience-card header {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+    width: 90%;
+}
+.experience-card header h2 {
+    color: var(--dorado);
+}
+.experience-card aside {
+    display: flex;
+    width: 90%;
+    justify-content: start;
+    align-items: start;
+    text-wrap: wrap;
+}
+
+/* Media query para pantallas medianas (2 columnas para tabletas) */
+@media (max-width: 1024px) {
+    .experiences-wall {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Media query para pantallas pequeñas (celulares) - 1 columna */
+@media (max-width: 767px) {
+    .experiences-wall {
+        grid-template-columns: 1fr;
+    }
+}

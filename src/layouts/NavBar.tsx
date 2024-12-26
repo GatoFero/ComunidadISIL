@@ -1,36 +1,17 @@
+import '../assets/css/layout.css';
 import {Outlet} from "react-router-dom";
-import '../assets/layout.css';
 import {createPortal} from "react-dom";
 import {useClickOutside} from "../hooks/useClickOutside.tsx";
-import joy from '/joy.png'
 import {useState} from "react";
 import {User} from "../models/User.ts";
+import Invited from '/invited.svg'
+import {useUserContext} from "../hooks/useUserContext.tsx";
+import {useAppContext} from "../hooks/useAppContext.tsx";
 
 export function NavBar() {
-    const [optionsShow, setOptionsShow] = useState(false);
-    const [userModalShow, setUserModalShow] = useState(false);
-    const options: Option[] = [
-        {
-            icon: "fas fa-user",
-            text: "Ver Reseñas",
-            onClickOption: () => alert("Ver Reseñas")
-        },
-        {
-            icon: "fas fa-star",
-            text: "Calificar",
-            onClickOption: () => alert("Ver Calificaciones")
-        },
-        {
-            icon: "fas fa-comments",
-            text: "Dejar Comentarios",
-            onClickOption: () => alert("Ver Comentarios")
-        }
-    ];
-    const user: User = {
-        email: "nataelsoto1234@gmail.com",
-        username: "Gato",
-        image: joy
-    }
+    const [optionsShow, setOptionsShow] = useState<boolean>(false);
+    const [userModalShow, setUserModalShow] = useState<boolean>(false);
+    const { user, handleSignOut } = useUserContext();
 
     return (
         <>
@@ -41,19 +22,19 @@ export function NavBar() {
                     onClick={() => setOptionsShow(!optionsShow)}
                 ></i>
                 <h1>Comunidad <strong>ISIL</strong></h1>
-                <i
-                    className="fas fa-user"
-                    onClick={() => setUserModalShow(!userModalShow)}
-                ></i>
+                <img src={user? user.picture : Invited}
+                     alt={"user-picture"}
+                     onClick={() =>
+                         setUserModalShow(!userModalShow)}
+                />
                 <MenuNav
                     optionsShow={optionsShow}
                     setOptionsShow={setOptionsShow}
-                    options={options}
                 />
                 {userModalShow && <UserMenuModal
                     user={user}
-                    options={options}
                     setOptionsShow={setUserModalShow}
+                    handleNavigateToUser={() => handleSignOut()}
                 />}
             </nav>
             <Outlet />
@@ -64,21 +45,22 @@ export function NavBar() {
 export interface Option {
     icon?: string;
     text: string;
-    onClickOption: () => void;
+    onClickOption: string;
 }
 
 interface MenuNavProps {
     optionsShow?: boolean;
     setOptionsShow: (optionsShow: boolean) => void;
-    options: Option[];
+    options?: Option[];
 }
 
 interface UserMenuModalProps extends MenuNavProps {
-    user: User;
+    user?: User | null;
+    handleNavigateToUser: () => Promise<void>;
 }
 
 export function UserMenuModal(
-    { user, setOptionsShow }: UserMenuModalProps
+    { user, setOptionsShow, handleNavigateToUser }: UserMenuModalProps
 ) {
     const navRef = useClickOutside<HTMLSpanElement>(() =>
         setOptionsShow(false)
@@ -95,19 +77,69 @@ export function UserMenuModal(
                        onClick={() => setOptionsShow(false)}
                     ></i>
                 </span>
-                <img src={user.image} alt="user"/>
-                <h1>Hola {user.username}!</h1>
+                <img style={{borderRadius: '100%'}}
+                     src={user?.picture ? user.picture : Invited}
+                     alt="user"/>
+                <h1>Hola {user? user.username : 'Invitado'}!</h1>
             </header>
+            <aside>
+                {user && (
+                    <span>
+                        <i className="fas fa-gear"></i>
+                        <p>Configurar</p>
+                    </span>
+                )}
+                <span>
+                    <i className="fas fa-dollar-sign"></i>
+                    <p>Contribuir</p>
+                </span>
+                <span onClick={handleNavigateToUser}>
+                    <p>{user? 'Cerrar Sesión' : 'Iniciar Sesión'}   </p>
+                </span>
+            </aside>
         </span>,
         document.body
     );
 }
 
 export function MenuNav(
-    {optionsShow, setOptionsShow, options}: MenuNavProps
+    {optionsShow, setOptionsShow}: MenuNavProps
 ) {
     const navRef = useClickOutside<HTMLDivElement>(() =>
         setOptionsShow(false));
+    const { navigate } = useAppContext();
+    const options: Option[] = [
+        {
+          icon: "fas fa-home",
+          text: "Inicio",
+          onClickOption: "/home"
+        },
+        {
+            icon: "fas fa-calculator",
+            text: "Calcular Notas",
+            onClickOption: "/calculator"
+        },
+        {
+            icon: "fas fa-graduation-cap",
+            text: "Carreras",
+            onClickOption: "/calculator"
+        },
+        {
+            icon: "fas fa-book",
+            text: "Reseñas de Cursos",
+            onClickOption: "/calculator"
+        },
+        {
+            icon: "fas fa-user-tie",
+            text: "Profesores",
+            onClickOption: "/calculator"
+        },
+        {
+            icon: 'fas fa-comments',
+            text: "Experiencias ISIL",
+            onClickOption: "/calculator"
+        }
+    ];
     return (
         <aside
             className="options-nav"
@@ -118,7 +150,10 @@ export function MenuNav(
                 {options.map((option, index) => (
                     <span key={index}
                           className="options-nav-option"
-                          onClick={option.onClickOption}
+                          onClick={() => {
+                              setOptionsShow(false)
+                              navigate(option.onClickOption)
+                          }}
                     >
                         <i className={option.icon}
                         ></i>

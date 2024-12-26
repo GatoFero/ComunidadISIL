@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import "../../assets/slide-carousel.css";
+import "../../assets/css/slide-carousel.css";
 
 interface SlideCarouselProps {
     slides: React.ReactNode[];
@@ -47,9 +47,9 @@ export function SlideCarousel({ slides }: SlideCarouselProps) {
         const deltaX = currentTranslate.current - prevTranslate.current;
 
         // Cambia de slide si el arrastre supera el umbral (15vw)
-        if (deltaX < -10 && currentSlide < slides.length - 1) {
+        if (deltaX < -15 && currentSlide < slides.length - 1) {
             setCurrentSlide((prev) => prev + 1);
-        } else if (deltaX > 10 && currentSlide > 0) {
+        } else if (deltaX > 15 && currentSlide > 0) {
             setCurrentSlide((prev) => prev - 1);
         }
 

@@ -1,21 +1,22 @@
-import {useNavigate} from "react-router-dom";
-import {signUp} from "../service/apiUsers.ts";
-import {useState} from "react";
-import '../assets/login.css'
+import '../assets/css/login.css'
+import {useEffect, useState} from "react";
 import {Anchor} from "../components/options/Anchor.tsx";
+import {useAppContext} from "../hooks/useAppContext.tsx";
+import {Select} from "../components/options/Select.tsx";
+import {useUserContext} from "../hooks/useUserContext.tsx";
 
 export function Register(){
-    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [selectedCareer, setSelectedCareer] = useState('');
+    const { careers, navigate } = useAppContext();
+    const { user, handleSignInvited, handleSignUp } = useUserContext();
 
-    const handleRegister = async () => {
-        if (email !== '' || password !== '') {
-            const data = await signUp(username, email, password);
-            if (data) navigate('/');
-        }
-    };
+    useEffect(() => {
+        if (user)navigate('/home');
+    },[navigate, user])
 
     return (
         <div className='login'>
@@ -25,11 +26,16 @@ export function Register(){
             </div>
             <div className="login-fields">
                 <input
-                    type="email"
-                    placeholder="Elige un nombre único"
+                    type="text"
+                    placeholder="Elige un nombre"
                     value={username}
                     onChange={e =>
                         setUsername(e.target.value)}
+                />
+                <Select selected={selectedCareer}
+                        setSelected={setSelectedCareer}
+                        purpose={"Selecciona tu carrera"}
+                        options={careers}
                 />
                 <input
                     type="email"
@@ -40,21 +46,22 @@ export function Register(){
                 />
                 <input
                     type="password"
-                    placeholder="Crea una contraseña segura"
+                    placeholder="Crea una contraseña"
                     value={password}
                     onChange={e =>
                         setPassword(e.target.value)}
                 />
                 <input
                     type="password"
-                    placeholder="Repite tu contraseña segura"
-                    value={password}
+                    placeholder="Repite tu contraseña"
+                    value={passwordConfirm}
                     onChange={e =>
-                        setPassword(e.target.value)}
+                        setPasswordConfirm(e.target.value)}
                 />
                 <button
                     className={"buttonPrimary"}
-                        onClick={handleRegister}
+                        onClick={() =>
+                            handleSignUp(email,password,passwordConfirm,username,selectedCareer)}
                 >Crear cuenta</button>
             </div>
             <div className={"anchors"}>
@@ -64,7 +71,7 @@ export function Register(){
                     textPath={"Inicia sesión"}
                 />
                 <Anchor
-                    onNavigate={() => navigate("/home")}
+                    onNavigate={handleSignInvited}
                     textContent={"¿Prefieres explorar primero?"}
                     textPath={"Ingresa como invitado"}
                 />

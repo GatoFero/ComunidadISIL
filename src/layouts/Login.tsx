@@ -1,13 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import '../assets/login.css'
+import {useEffect, useState} from 'react';
+import '../assets/css/login.css'
 import {Anchor} from "../components/options/Anchor.tsx";
+import {useAppContext} from "../hooks/useAppContext.tsx";
+import {useUserContext} from "../hooks/useUserContext.tsx";
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+    const { navigate } = useAppContext();
+    const { user, handleSignIn, handleSignInvited } = useUserContext();
 
+    useEffect(() => {
+        if (user)navigate('/home');
+    },[navigate, user])
+    
     return (
         <div className="login">
             <div className="login-title">
@@ -29,7 +35,10 @@ export function Login() {
                     onChange={e =>
                         setPassword(e.target.value)}
                 />
-                <button className={"buttonPrimary"}>Acceder</button>
+                <button className={"buttonPrimary"}
+                        onClick={() =>
+                            handleSignIn(email,password,'/home')}
+                >Acceder</button>
             </div>
             <div className="anchors">
                 <Anchor
@@ -38,7 +47,7 @@ export function Login() {
                     textPath="Regístrate en segundos."
                 />
                 <Anchor
-                    onNavigate={() => navigate("/Home")}
+                    onNavigate={handleSignInvited}
                     textContent="¿Estás de chismoso?"
                     textPath="Ingresa como Invitado"
                 />

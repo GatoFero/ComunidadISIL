@@ -28,10 +28,7 @@
     align-items: center;
     gap: 10px;
 }
-.login-fields input {
-    padding: 15px;
-    width: 100%;
-}
+
 .login-fields button {
     width: 100%;
     padding: 15px 0;

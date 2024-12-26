@@ -1,10 +1,6 @@
-import {Comment} from "./Comment";
-
 export interface Teacher {
-    id: number | null;
+    id?: number;
     firstname: string;
     lastname: string;
     qualification: number
-    comments: Comment[] | null,
-    course_id: number | null;
 }

@@ -1,11 +1,12 @@
 .navbar {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 25px clamp(15px, 6vw, 50px);
-    width: 100vw;
+    padding: 15px clamp(15px, 6vw, 50px);
+    width: 100%;
+    overflow-y: auto;
     background-color: var(--plomo);
+    z-index: 1000;
 }
 .navbar h1{
     font-size: 25px;
@@ -13,6 +14,11 @@
 .navbar i {
     font-size: 30px;
     transition: 300ms opacity ease-in-out;
+}
+.navbar img {
+    aspect-ratio: 1 / 1;
+    width: 40px;
+    border-radius: 50%;
 }
 .navbar i:hover {
     color: var(--celeste);
@@ -47,6 +53,11 @@
     align-items: center;
     justify-content: start;
     gap: 10px;
+    cursor: pointer;
+}
+.options-nav-option i {
+    width: 50px;
+    text-align: center;
 }
 .options-nav-option:hover {
     color: var(--celeste);
@@ -69,8 +80,9 @@
     justify-content: center;
     width: 280px;
     padding: 20px;
+    gap: 20px;
     border-radius: 10px;
-    z-index: 100;
+    z-index: 1001;
     position: fixed;
     right: 5.5%;
     top: 65px;
@@ -90,6 +102,31 @@
 }
 .user-menu-modal header img {
     width: 130px;
+    aspect-ratio: 1 / 1;
+}
+.user-menu-modal aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 10px;
+    gap: 5px;
+    overflow: hidden;
+}
+.user-menu-modal aside span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+    font-size: 20px;
+    background: rgba(89, 88, 88, 0.63);
+    transition: 200ms ease-in-out;
+}
+.user-menu-modal aside span:hover {
+    background: rgba(173, 173, 173, 0.63);
 }
 .modal-close {
     width: 100%;

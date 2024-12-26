@@ -11,7 +11,6 @@ export const addTeacher = async (
             firstname: teacher.firstname,
             lastname: teacher.lastname,
             qualification: teacher.qualification,
-            course_id: teacher.course_id
         }])
         .select('*')
         .single()
